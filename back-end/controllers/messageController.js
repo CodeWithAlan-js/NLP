@@ -7,13 +7,14 @@ export const getMessages = async (_, res) => {
 
 export const createMessage = async (req, res) => {
     const message = new messageModel(req.body);
+    if (!message.message) {
+        res.status(400).send("Message is required");
+    }
     await message.save();
-    console.log("message created successfully");
     res.send(message);
 }
 
 export const deleteMessage = async (req, res) => {
     await messageModel.findByIdAndDelete(req.params.id);
-    console.log("message deleted successfully");
     res.send("Message deleted successfully");
 }
