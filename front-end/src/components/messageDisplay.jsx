@@ -1,32 +1,29 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 
+const MessageDisplay = React.memo(({ messages }) => {
+  const messagesEndRef = useRef(null);
 
-const MessageDisplay = () => {
-    const [messages, setMessages] = React.useState([]);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
-    React.useEffect(() => {
-        const fetchMessages = async () => {
-            try {
-                const response = await fetch("http://localhost:3000/api/messages");
-                const data = await response.json();
-                setMessages(data);
-            } catch (error) {
-                console.error(error);
-            }
-        }
-        fetchMessages();
-    }, []);
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
-    return (
-        <div className=" w-full border-t-2 border-[#BDE0FE] ">
-            <ul>
-                {messages.map((message) => (
-                    <li key={message.id} className="text-lg">{message.message}</li>
-                ))}
-            </ul>
-        </div>
-    );
-    }
-
+  return (
+    <div className="w-full max-h-screen pt-16 pb-16 overflow-y-auto">
+      <ul>
+        {messages.map((message) => (
+          <li key={message._id} className="m-2">
+            <span className="text-lg">- {message.message}</span>{" "}
+            <span className="text-sm">/ Mood detected: {message.mood}</span>
+          </li>
+        ))}
+        <div ref={messagesEndRef} />
+      </ul>
+    </div>
+  );
+});
 
 export default MessageDisplay;

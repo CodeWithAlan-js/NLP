@@ -1,4 +1,5 @@
 import messageModel from "../models/messageModel.js";
+import detectMood from "../detectMood.js";
 
 export const getMessages = async (_, res) => {
     const messages = await messageModel.find();
@@ -6,12 +7,11 @@ export const getMessages = async (_, res) => {
 }
 
 export const createMessage = async (req, res) => {
-    const message = new messageModel(req.body);
-    if (!message.message) {
-        res.status(400).send("Message is required");
-    }
-    await message.save();
-    res.send(message);
+    const { message } = req.body;
+    const mood = detectMood(message);
+    const newMessage = new messageModel({ message, mood });
+    await newMessage.save();
+    res.send(newMessage);
 }
 
 export const deleteMessage = async (req, res) => {

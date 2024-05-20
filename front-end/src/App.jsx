@@ -3,7 +3,7 @@ import ChatView from "./views/chatViews";
 
 function App() {
   return (
-    <div className="h-screen w-screen overflow-hidden">
+    <div className="max-h-screen w-screen">
       <ChatView />
     </div>
   );
