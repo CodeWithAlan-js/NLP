@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from "react";
 
+// eslint-disable-next-line react/display-name
 const MessageDisplay = React.memo(({ messages }) => {
   const messagesEndRef = useRef(null);
 
