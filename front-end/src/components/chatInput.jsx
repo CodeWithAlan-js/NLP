@@ -22,9 +22,9 @@ const ChatInput = ({ fetchMessages }) => {
   };
 
   return (
-    <div className="flex w-full h-16 items-center justify-center border-t-2  border-[#BDE0FE] bg-white fixed bottom-0 ">
+    <div className="flex w-full h-16 items-center justify-center border-t-2 border-[#BDE0FE] bg-white fixed bottom-0 ">
       <p className="text-red-500 absolute -top-10">{error}</p>
-      <div className="flex">
+      <div className="flex gap-4">
         <Input
           className="w-auto"
           type="text"
@@ -32,7 +32,11 @@ const ChatInput = ({ fetchMessages }) => {
           value={message}
           onChange={handleChange}
         />
-        <Button size="sm" className=" rounded" onClick={handleSubmit}>
+        <Button
+          size="sm"
+          className="flex justify-center items-center rounded"
+          onClick={handleSubmit}
+        >
           Send
         </Button>
       </div>
